@@ -4,7 +4,7 @@ epoch=240
 extra_tag=fp_test
 
 
-nohup python -u test_scannet.py \
+nohup python -u tools/test_scannet.py \
     --gpu ${gpu} \
     --model ${model}\
     --batch_size 24 \

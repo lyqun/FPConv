@@ -4,7 +4,7 @@ extra_tag=fp_test
 
 mkdir logs/${extra_tag}
 
-nohup python -u train_scannet.py \
+nohup python -u tools/train_scannet.py \
     --model ${model} \
     --batch_size 12 \
     --save_dir logs/${extra_tag} \
