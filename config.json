@@ -1,0 +1,6 @@
+{
+    "version": "0.1",
+    "scannet_raw": "/data5/yiqun/scannet",
+    "scannet_pickle": "/data2/yiqun/scannet/scannet_v2_rgb",
+    "scene_list": "/data4/yiqun/codes/FPConv/utils/scannet_datalist"
+}
