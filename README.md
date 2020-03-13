@@ -1,5 +1,5 @@
 # FPConv
-FPConv: Learning Local Flattening for Point Convolution
+Yiqun Lin, Zizheng Yan, Haibin Huang, Dong Du, Ligang Liu, Shuguang Cui, Xiaoguang Han, "FPConv: Learning Local Flattening for Point Convolution", CVPR 2020 [paper](https://arxiv.org/abs/2002.10701)
 
 ### Installation
 
