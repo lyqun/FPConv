@@ -45,7 +45,7 @@ Edit the global configuration file `config.json` before training.
 }
 ```
 
-#### Semantic Segmentation on ScanNet
+### Semantic Segmentation on ScanNet
 
 Download the ScanNetv2 dataset, and generate training data by runing:
 
