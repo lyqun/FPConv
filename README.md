@@ -47,6 +47,16 @@ Edit the global configuration file `config.json` before training.
 
 ### Semantic Segmentation on ScanNet
 
+__0. Baseline__
+
+Tested on evaluation dataset of ScanNet. (see `./utils/scannet_datalist/scannetv2_eval.txt`)
+
+| Model         | mIoU | mA   | oA   | download                                                     |
+| ------------- | ---- | ---- | ---- | ------------------------------------------------------------ |
+| fpcnn_scannet | 64.4 | 76.4 | 85.8 | [ckpt-15M](https://drive.google.com/file/d/1vx6FVLRd37OHVIeKR0KKM1Z4NP_YFqLG/view?usp=sharing) |
+
+__1. Preprocessing__
+
 Download the ScanNetv2 dataset, and generate training data by runing:
 
 ```shell
@@ -54,7 +64,7 @@ cd utils
 python gen_pickle.py
 ```
 
-__1. Train__
+__2. Train__
 
 Run the following command to start the training:
 
@@ -64,7 +74,7 @@ Run the following command to start the training:
 
 We trained our model with 2 Titan Xp GPUs with batch size of 12. If you don't have enough GPUs for training, please reduce `batch_size` to 6 for single GPU.
 
-__2. Evaluate__
+__3. Evaluate__
 
 Run the following command to evaluate model on evaluation dataset (you may need to modify the `epoch` in `./test_scannet.sh`):
 
