@@ -38,10 +38,10 @@ Edit the global configuration file `config.json` before training.
 
 ```json
 {
-    "version": "0.1",
-    "scannet_raw": "<path_to_scannet_raw>",
-    "scannet_pickle": "<path_to_save_scannet_pickle>",
-    "scene_list": "<path_to_this_repo>/utils/scannet_datalist",
+    "version": "0.0",
+    "scannet_raw": "<path_to_this_repo>/dataset/scannet_v2",
+    "scannet_pickle": "<path_to_this_repo>/dataset/scannet_pickles",
+    "scene_list": "<path_to_this_repo>/utils/scannet_datalist"
 }
 ```
 
@@ -49,40 +49,58 @@ Edit the global configuration file `config.json` before training.
 
 __0. Baseline__
 
-Tested on evaluation dataset of ScanNet. (see `./utils/scannet_datalist/scannetv2_eval.txt`)
+Tested on eval split of ScanNet. (see `./utils/scannet_datalist/scannetv2_eval.txt`)
 
 | Model         | mIoU | mA   | oA   | download                                                     |
 | ------------- | ---- | ---- | ---- | ------------------------------------------------------------ |
-| fpcnn_scannet | 64.4 | 76.4 | 85.8 | [ckpt-15M](https://drive.google.com/file/d/1vx6FVLRd37OHVIeKR0KKM1Z4NP_YFqLG/view?usp=sharing) |
+| fpcnn_scannet | 64.4 | 76.4 | 85.8 | [ckpt-17.8M](https://drive.google.com/file/d/1jR-m3bx2tGo9oV4ULdaYr-woSiel659T/view?usp=sharing) |
 
 __1. Preprocessing__
 
-Download the ScanNetv2 dataset, and generate training data by runing:
+Download ScanNet v2 dataset to `./dataset/scannet_v2`. Only `_vh_clean_2.ply` and `_vh_clean_2.labels.ply` should be downloaded for each scene. Then run following commands for data pre-processing.
 
 ```shell
 cd utils
 python gen_pickle.py
 ```
 
-__2. Train__
-
-Run the following command to start the training:
+It will generate 3 pickle files (`scannet_<split>_rgb21c_pointid.pickle`) for 3 splits (train, eval, test) respectively. We will provide pre-processed ScanNet v2 dataset later. The `./dataset` folder should be organized as follows:
 
 ```
-./train_scannet.sh
+FPConv
+├── dataset
+│   ├── scannet_v2
+│   │  ├── scans
+│   │  ├── scans_test
+│   ├── scannet_pickles
+│   │  ├── scannet_train_rgb21c_pointid.pickle
+│   │  ├── scannet_eval_rgb21c_pointid.pickle
+│   │  ├── scannet_test_rgb21c_pointid.pickle
+```
+
+__2. Training__
+
+Run the following command to start the training. Output (logs) will be redirected to `./logs/fp_test/nohup.log`.
+
+```shell
+bash train_scannet.sh
 ```
 
 We trained our model with 2 Titan Xp GPUs with batch size of 12. If you don't have enough GPUs for training, please reduce `batch_size` to 6 for single GPU.
 
-__3. Evaluate__
+__3. Evaluation__
 
-Run the following command to evaluate model on evaluation dataset (you may need to modify the `epoch` in `./test_scannet.sh`):
+Run the following command to evaluate model on evaluation dataset (you may need to modify the `epoch` in `./test_scannet.sh`). Output (logs) will be redirected to `./test/fp_test_240.log`.
 
 ```shell
-./test_scannet.sh
+bash test_scannet.sh
 ```
 
 __Note__: Final evaluation (by running `./test_scannet.sh`) is conducted on full point cloud, while evaluation during the training phase is conducted on randomly sampled points in each block of input scene.
+
+### Semantic Segmentation on S3DIS
+
+Codes will be released soon.
 
 ## Acknowledgement
 
