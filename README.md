@@ -41,7 +41,7 @@ Edit the global configuration file `config.json` before training.
     "version": "0.0",
     "scannet_raw": "<path_to_this_repo>/dataset/scannet_v2",
     "scannet_pickle": "<path_to_this_repo>/dataset/scannet_pickles",
-  	"s3dis_aligned_raw": "<path_to_this_repo>/dataset/Stanford3dDataset_v1.2_Aligned_Version",
+    "s3dis_aligned_raw": "<path_to_this_repo>/dataset/Stanford3dDataset_v1.2_Aligned_Version",
     "s3dis_data_root": "<path_to_this_repo>/dataset/s3dis_aligned"
 }
 ```
