@@ -11,7 +11,7 @@ from datasets.s3dis_dataset_test import S3DISWholeScene_evaluation
 np.seterr(divide='ignore', invalid='ignore')
 
 parser = argparse.ArgumentParser(description="Arg parser")
-parser.add_argument("--gpu", type=str, default='0,1,2,3')
+parser.add_argument("--gpu", type=str, default='0')
 parser.add_argument("--batch_size", type=int, default=12)
 parser.add_argument("--model", type=str, default='fpcnn_s3dis')
 
