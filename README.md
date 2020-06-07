@@ -41,7 +41,8 @@ Edit the global configuration file `config.json` before training.
     "version": "0.0",
     "scannet_raw": "<path_to_this_repo>/dataset/scannet_v2",
     "scannet_pickle": "<path_to_this_repo>/dataset/scannet_pickles",
-    "scene_list": "<path_to_this_repo>/utils/scannet_datalist"
+  	"s3dis_aligned_raw": "<path_to_this_repo>/dataset/Stanford3dDataset_v1.2_Aligned_Version",
+    "s3dis_data_root": "<path_to_this_repo>/dataset/s3dis_aligned"
 }
 ```
 
@@ -57,14 +58,14 @@ Tested on eval split of ScanNet. (see `./utils/scannet_datalist/scannetv2_eval.t
 
 __1. Preprocessing__
 
-Download ScanNet v2 dataset to `./dataset/scannet_v2`. Only `_vh_clean_2.ply` and `_vh_clean_2.labels.ply` should be downloaded for each scene. Then run following commands for data pre-processing.
+Download ScanNet v2 dataset to `./dataset/scannet_v2`. Only `_vh_clean_2.ply` and `_vh_clean_2.labels.ply` should be downloaded for each scene. Specify the dataset path and output path in `config.json` and then run following commands for data pre-processing.
 
 ```shell
 cd utils
-python gen_pickle.py
+python collect_scannet_pickle.py.py
 ```
 
-It will generate 3 pickle files (`scannet_<split>_rgb21c_pointid.pickle`) for 3 splits (train, eval, test) respectively. We will provide pre-processed ScanNet v2 dataset later. The `./dataset` folder should be organized as follows:
+It will generate 3 pickle files (`scannet_<split>_rgb21c_pointid.pickle`) for 3 splits (train, eval, test) respectively. We also provide a pre-processed ScanNet v2 dataset for downloading: [Google Drive](https://drive.google.com/drive/folders/1IcV-1OLFAWWdip8leKJa2WKsix18obt8?usp=sharing). The `./dataset` folder should be organized as follows.
 
 ```
 FPConv
@@ -100,7 +101,44 @@ __Note__: Final evaluation (by running `./test_scannet.sh`) is conducted on full
 
 ### Semantic Segmentation on S3DIS
 
-Codes will be released soon.
+__0. Baseline__
+
+Trained on Area 1~4 and 6, tested on Area 5.
+
+| Model       | mIoU | mA   | oA   | download                                                     |
+| ----------- | ---- | ---- | ---- | ------------------------------------------------------------ |
+| fpcnn_s3dis | 62.7 | 70.3 | 87.5 | [ckpt-70.0M](https://drive.google.com/file/d/1v5FHDYPfcji3elUQJ-P6n618EZ7_2rpd/view?usp=sharing) |
+
+__1. Preprocessing__
+
+Firstly, you need to download S3DIS dataset from [link](http://buildingparser.stanford.edu/dataset.html), aligned version 1.2 of the dataset is used in this work. Unzip S3DIS dataset into `./dataset/Stanford3dDataset_v1.2_Aligned_Version`, and specify the dataset path and output path in `config.json`. Then run the following commands for pre-processing.
+
+```shell
+cd utils
+python collect_indoor3d_data.py
+cd ..
+```
+
+It will generate a  `.npy` files for each room. The dataset folder should be organized as follows. We also provide a pre-processed S3DIS dataset for downloading: [Google Drive](https://drive.google.com/file/d/1Pdf8x-Ayz8n5YxkouU1R9nD71LEctAtq/view?usp=sharing).
+
+```
+FPConv
+├── dataset
+│   ├── Stanford3dDataset_v1.2_Aligned_Version
+│   │  ├── Area_1
+│   │  ├── ...
+│   │  ├── Area_6
+│   ├── s3dis_aligned
+│   │  ├── *.npy
+```
+
+__2. Training__
+
+We trained our model on S3DIS with 4 Titan Xp GPUs, batch size of 8 totally, and 100 epochs.
+
+__3. Evaluation__
+
+
 
 ## Acknowledgement
 

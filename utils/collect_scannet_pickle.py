@@ -1,8 +1,5 @@
 """
-ScanNet v2 data preprocessing.
-Extract point clouds data from .ply files to genrate .pickle files for training and testing.
-Author: Wenxuan Wu
-Date: July 2018
+    Modified from https://github.com/DylanWusee/pointconv/blob/master/scannet/scannetv2_seg_dataset_rgb21c_pointid.py
 """
 
 import os
@@ -15,10 +12,13 @@ import argparse
 
 parser = argparse.ArgumentParser(description="Arg parser")
 parser.add_argument("--config", type=str, default='../config.json')
+args = parser.parse_args()
 with open(args.config, 'r') as f:
     _cfg = json.load(f)
     print(_cfg)
 
+UTILS_DIR = os.path.dirname(os.path.abspath(__file__))
+LIST_ROOT = os.path.join(UTILS_DIR, 'scannet_datalist')
 
 def remove_unano(scene_data, scene_label, scene_data_id):
     keep_idx = np.where((scene_label > 0) & (scene_label < 41)) # 0: unanotated
@@ -38,12 +38,12 @@ def gen_label_map():
     print(label_map)
     return label_map
 
-def gen_pickle(split = "eval", root = "/data5/yiqun/scannet"):
+def gen_pickle(split="eval", root="/data5/yiqun/scannet"):
     if split == 'test':
         root = os.path.join(root, "scans_test")
     else:
         root = os.path.join(root, "scans")
-    file_list = os.path.join(_cfg['scene_list'], "scannetv2_%s.txt"%(split))
+    file_list = os.path.join(LIST_ROOT, "scannetv2_%s.txt"%(split))
     with open(file_list) as fl:
         scene_id = fl.read().splitlines()
     

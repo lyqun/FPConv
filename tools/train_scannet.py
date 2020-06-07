@@ -17,7 +17,7 @@ from utils.switchnorm import convert_sn
 np.seterr(divide='ignore', invalid='ignore')
 
 parser = argparse.ArgumentParser(description="Arg parser")
-parser.add_argument("--gpu", type=str, default='6,7')
+parser.add_argument("--gpu", type=str, default='0,1')
 parser.add_argument("--batch_size", type=int, default=12)
 parser.add_argument("--epochs", type=int, default=300)
 parser.add_argument('--workers', type=int, default=12)
@@ -249,14 +249,14 @@ def train(model, train_loader, eval_loader, tb_log, resume_epoch=0):
         lr_scheduler.step(epoch)
 
         # evaluate model
-        if epoch % 20 == 0: # epoch >= 30 and epoch % 5 == 0:
-            # saver.save_checkpoint(model, epoch, 'saved_ckpt_{}'.format(epoch))
+        if (epoch > 0 and epoch % 20 == 0) or \
+           (epoch > 220 and epoch % 5 == 0):
             log_str('====== Evaluation ======')
             miou = eval_one_epoch(model, eval_loader, epoch, tb_log)
             if miou > best_miou:
                 best_miou = miou
                 best_epoch = epoch
-                saver.save_checkpoint(model, epoch, 'pn2_best_epoch_{}'.format(epoch))
+            saver.save_checkpoint(model, epoch, 'pn2_best_epoch_{}'.format(epoch))
         log_str(' === Best mIoU: {}, epoch {}. === '.format(best_miou, best_epoch))
         
 if __name__ == '__main__':
