@@ -1,7 +1,7 @@
 gpu=0
 model=fpcnn_scannet
 epoch=240
-extra_tag=fp_test
+extra_tag=fp_scannet
 
 
 nohup python -u tools/test_scannet.py \

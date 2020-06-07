@@ -1,6 +1,6 @@
-gpu=1,5
+gpu=0,1
 model=fpcnn_scannet
-extra_tag=fp_test
+extra_tag=fp_scannet
 
 mkdir logs/${extra_tag}
 

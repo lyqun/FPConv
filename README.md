@@ -46,7 +46,7 @@ Edit the global configuration file `config.json` before training.
 }
 ```
 
-### Semantic Segmentation on ScanNet
+### — Semantic Segmentation on ScanNet
 
 __0. Baseline__
 
@@ -62,7 +62,7 @@ Download ScanNet v2 dataset to `./dataset/scannet_v2`. Only `_vh_clean_2.ply` an
 
 ```shell
 cd utils
-python collect_scannet_pickle.py.py
+python collect_scannet_pickle.py
 ```
 
 It will generate 3 pickle files (`scannet_<split>_rgb21c_pointid.pickle`) for 3 splits (train, eval, test) respectively. We also provide a pre-processed ScanNet v2 dataset for downloading: [Google Drive](https://drive.google.com/drive/folders/1IcV-1OLFAWWdip8leKJa2WKsix18obt8?usp=sharing). The `./dataset` folder should be organized as follows.
@@ -81,7 +81,7 @@ FPConv
 
 __2. Training__
 
-Run the following command to start the training. Output (logs) will be redirected to `./logs/fp_test/nohup.log`.
+Run the following command to start the training. Output (logs) will be redirected to `./logs/fp_scannet/nohup.log`.
 
 ```shell
 bash train_scannet.sh
@@ -91,7 +91,7 @@ We trained our model with 2 Titan Xp GPUs with batch size of 12. If you don't ha
 
 __3. Evaluation__
 
-Run the following command to evaluate model on evaluation dataset (you may need to modify the `epoch` in `./test_scannet.sh`). Output (logs) will be redirected to `./test/fp_test_240.log`.
+Run the following command to evaluate model on evaluation dataset (you may need to modify the `epoch` in `./test_scannet.sh`). Output (logs) will be redirected to `./test/fp_scannet_240.log`.
 
 ```shell
 bash test_scannet.sh
@@ -99,7 +99,7 @@ bash test_scannet.sh
 
 __Note__: Final evaluation (by running `./test_scannet.sh`) is conducted on full point cloud, while evaluation during the training phase is conducted on randomly sampled points in each block of input scene.
 
-### Semantic Segmentation on S3DIS
+### — Semantic Segmentation on S3DIS
 
 __0. Baseline__
 
@@ -134,15 +134,27 @@ FPConv
 
 __2. Training__
 
+Run the following command to start the training. Output (logs) will be redirected to `./logs/fp_s3dis/nohup.log`.
+
+```shell
+bash train_s3dis.sh
+```
+
 We trained our model on S3DIS with 4 Titan Xp GPUs, batch size of 8 totally, and 100 epochs.
 
 __3. Evaluation__
 
+Run the following command to evaluate model on evaluation dataset (you may need to modify the `epoch` in `./test_s3dis.sh`). Output (logs) will be redirected to `./test/fp_s3dis_60.log`.
 
+```shell
+bash test_s3dis.sh
+```
 
 ## Acknowledgement
 
 - [sshaoshuai/Pointnet2.PyTorch](https://github.com/sshaoshuai/Pointnet2.PyTorch): PyTorch implementation of PointNet++.
+- [charlesq34/pointnet](https://github.com/charlesq34/pointnet): Data pre-processing for S3DIS.
+- [DylanWusee/pointconv](https://github.com/DylanWusee/pointconv): Data pre-processing for ScanNet.
 
 ## License
 
