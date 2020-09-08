@@ -9,5 +9,4 @@ nohup python -u tools/train_s3dis.py \
     --model ${model} \
     --batch_size 8 \
     --gpu ${gpu} \
-    --resume logs/${extra_tag}/pn2_best_epoch_60.pth \
     >> logs/${extra_tag}/nohup.log 2>&1 &
