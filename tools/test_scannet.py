@@ -53,6 +53,7 @@ def load_checkpoint(model, filename):
         model.load_state_dict(checkpoint['model_state'])
         print("==> Done")
     else:
+        print(filename)
         raise FileNotFoundError
     return epoch
 
@@ -87,9 +88,12 @@ def write_to_file(path, probs):
         predict = np.argmax(probs[:, 1:], axis=1) # pn
         predict += 1
         predict = class_dict[predict]
-        np.savetxt(path + '.txt', predict)
+        with open(file_name, 'w') as f:
+            f.write(str(predict[0]))
+            for pred in predict[1:]:
+                f.write('\n{}'.format(pred))
     else:
-        np.save(path, probs)
+        np.save(file_name, probs)
     print(' -- save file to ====>', file_name)
 
 
@@ -129,12 +133,7 @@ def test(model, dst_loader, pn_list, scene_list):
             if not os.path.exists(args.save_dir):
                 os.makedirs(args.save_dir)
             save_path = os.path.join(args.save_dir, '{}'.format(scene_id))
-            write_to_file(save_path + '_preds', predict)
-
-            labels = SEM_LABELS[scene_index]
-            points = dst_loader.dataset.scene_points_list[scene_index]
-            write_to_file(save_path + '_labels', labels)
-            write_to_file(save_path + '_points', points)
+            write_to_file(save_path, predict)
         
         if args.mode != 'test':
             predict = np.argmax(predict[:, 1:], axis=1) # pn
