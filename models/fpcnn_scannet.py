@@ -17,6 +17,14 @@ DP_RATIO = 0.5
 
 
 def get_model(num_class, input_channels=3, num_pts=None):
+    """
+    Construct a model.
+
+    Args:
+        num_class: (int): write your description
+        input_channels: (todo): write your description
+        num_pts: (int): write your description
+    """
     if num_pts is None:
         num_pts = NPOINT
     return FPCNN_ScanNet(num_pts, num_class, input_channels)
@@ -24,6 +32,16 @@ def get_model(num_class, input_channels=3, num_pts=None):
 
 class FPCNN_ScanNet(nn.Module):
     def __init__(self, num_pts, num_class, input_channels, use_xyz=False):
+        """
+        Initialize the channel.
+
+        Args:
+            self: (todo): write your description
+            num_pts: (int): write your description
+            num_class: (int): write your description
+            input_channels: (todo): write your description
+            use_xyz: (bool): write your description
+        """
         # input_channels: input feature channels (not include xyz)
         super().__init__()
         NPOINT = num_pts
@@ -93,6 +111,13 @@ class FPCNN_ScanNet(nn.Module):
         self.cls_layer = nn.Sequential(*cls_layers)
 
     def _break_up_pc(self, pc):
+        """
+        Return the features into a features.
+
+        Args:
+            self: (todo): write your description
+            pc: (todo): write your description
+        """
         xyz = pc[..., 0:3].contiguous()
         features = (
             pc[..., 3:].transpose(1, 2).contiguous()
@@ -101,6 +126,16 @@ class FPCNN_ScanNet(nn.Module):
         return xyz, features
 
     def forward(self, pointcloud: torch.cuda.FloatTensor):
+        """
+        Forward computation
+
+        Args:
+            self: (todo): write your description
+            pointcloud: (todo): write your description
+            torch: (todo): write your description
+            cuda: (todo): write your description
+            FloatTensor: (todo): write your description
+        """
         xyz, features = self._break_up_pc(pointcloud)
 
         _, features = self.conv0(xyz, features)

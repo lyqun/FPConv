@@ -30,6 +30,13 @@ class FurthestPointSampling(Function):
 
     @staticmethod
     def backward(xyz, a=None):
+        """
+        Backward compatibility
+
+        Args:
+            xyz: (todo): write your description
+            a: (todo): write your description
+        """
         return None, None
 
 
@@ -61,6 +68,13 @@ class GatherOperation(Function):
 
     @staticmethod
     def backward(ctx, grad_out):
+        """
+        Perform backward backward backward backward backward.
+
+        Args:
+            ctx: (todo): write your description
+            grad_out: (todo): write your description
+        """
         idx, C, N = ctx.for_backwards
         B, npoint = idx.size()
 
@@ -99,6 +113,14 @@ class ThreeNN(Function):
 
     @staticmethod
     def backward(ctx, a=None, b=None):
+        """
+        Backward backward backward backward backward.
+
+        Args:
+            ctx: (todo): write your description
+            a: (todo): write your description
+            b: (todo): write your description
+        """
         return None, None
 
 
@@ -222,6 +244,13 @@ class BallQuery(Function):
 
     @staticmethod
     def backward(ctx, a=None):
+        """
+        R backward.
+
+        Args:
+            ctx: (todo): write your description
+            a: (todo): write your description
+        """
         return None, None, None, None
 
 
@@ -332,6 +361,13 @@ class QueryAndGroupXYZ(nn.Module):
 
 class GroupAll(nn.Module):
     def __init__(self, use_xyz: bool = True):
+        """
+        Initializes the x y - axis
+
+        Args:
+            self: (todo): write your description
+            use_xyz: (bool): write your description
+        """
         super().__init__()
         self.use_xyz = use_xyz
 

@@ -8,6 +8,20 @@ import torch.utils.data as torch_data
 class S3DISWholeScene_evaluation(torch_data.IterableDataset):
     # prepare to give prediction on each points
     def __init__(self, root=None, split='test', test_area=5, num_class=13, block_points=8192, block_size=1.5, stride=0.5, with_rgb=True):
+        """
+        Initialize a geojson object.
+
+        Args:
+            self: (todo): write your description
+            root: (str): write your description
+            split: (int): write your description
+            test_area: (todo): write your description
+            num_class: (int): write your description
+            block_points: (todo): write your description
+            block_size: (int): write your description
+            stride: (int): write your description
+            with_rgb: (todo): write your description
+        """
         print('test area:', test_area)
         self.root = root
         self.split = split
@@ -40,11 +54,23 @@ class S3DISWholeScene_evaluation(torch_data.IterableDataset):
             self.point_num.append(seg.shape[0])
 
     def reset(self):
+        """
+        Reset the temperature.
+
+        Args:
+            self: (todo): write your description
+        """
         self.temp_data = []
         self.temp_index = 0
         self.now_index = 0
 
     def __iter__(self):
+        """
+        Iterate through the dataset
+
+        Args:
+            self: (todo): write your description
+        """
         if self.now_index >= len(self.scene_points_list):
             print(' ==== reset dataset index ==== ')
             self.reset()
@@ -57,12 +83,28 @@ class S3DISWholeScene_evaluation(torch_data.IterableDataset):
             yield l[i:i + n]
 
     def split_data(self, data, idx):
+        """
+        Split the data by index.
+
+        Args:
+            self: (todo): write your description
+            data: (array): write your description
+            idx: (int): write your description
+        """
         new_data = []
         for i in range(len(idx)):
             new_data += [data[idx[i]]]
         return new_data
 
     def nearest_dist(self, block_center, block_center_list):
+        """
+        Find the closest distance between two points.
+
+        Args:
+            self: (todo): write your description
+            block_center: (str): write your description
+            block_center_list: (list): write your description
+        """
         num_blocks = len(block_center_list)
         dist = np.zeros(num_blocks)
         for i in range(num_blocks):
@@ -71,6 +113,12 @@ class S3DISWholeScene_evaluation(torch_data.IterableDataset):
         return np.argsort(dist)[0]
 
     def gen_batch_data(self):
+        """
+        Generate batch data
+
+        Args:
+            self: (todo): write your description
+        """
         index = self.now_index
         self.now_index += 1
         self.temp_data = []
@@ -187,6 +235,12 @@ class S3DISWholeScene_evaluation(torch_data.IterableDataset):
                 (point_set, div_blocks_seg[i], div_blocks_idxs[i]))
 
     def __next__(self):
+        """
+        Returns the next batch.
+
+        Args:
+            self: (todo): write your description
+        """
         if self.temp_index >= len(self.temp_data):
             raise StopIteration()
         else:
