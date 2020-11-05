@@ -6,6 +6,20 @@ from torch.utils.data import Dataset
 
 class S3DIS(Dataset):
     def __init__(self, split='train', data_root='trainval_fullarea', num_point=4096, test_area=5, block_size=1.0, sample_rate=1.0, transform=None, if_normal=True):
+        """
+        Initialize all points.
+
+        Args:
+            self: (todo): write your description
+            split: (int): write your description
+            data_root: (str): write your description
+            num_point: (int): write your description
+            test_area: (todo): write your description
+            block_size: (int): write your description
+            sample_rate: (int): write your description
+            transform: (str): write your description
+            if_normal: (todo): write your description
+        """
         super().__init__()
         print('Initiating DataLoader....')
         self.if_normal = if_normal
@@ -55,6 +69,13 @@ class S3DIS(Dataset):
         print("Totally {} samples in {} set.".format(len(self.room_idxs), split))
 
     def __gen_labelweights(self, labels):
+        """
+        Generate labelweights labels.
+
+        Args:
+            self: (todo): write your description
+            labels: (array): write your description
+        """
         labelweights = np.zeros(13)
         for seg in labels:
             tmp, _ = np.histogram(seg, range(14))
@@ -65,6 +86,13 @@ class S3DIS(Dataset):
         return np.power(np.amax(labelweights) / labelweights, 1 / 3.0)
 
     def __getitem__(self, idx):
+        """
+        Get a random column from the labels.
+
+        Args:
+            self: (todo): write your description
+            idx: (list): write your description
+        """
         room_idx = self.room_idxs[idx]
         points = self.room_points[room_idx]   # N * 6
         labels = self.room_labels[room_idx]   # N
@@ -113,6 +141,12 @@ class S3DIS(Dataset):
         return current_points, current_labels, sampleweights
 
     def __len__(self):
+        """
+        Returns the number of room.
+
+        Args:
+            self: (todo): write your description
+        """
         return len(self.room_idxs)
 
 
@@ -139,6 +173,12 @@ if __name__ == '__main__':
     print("After loading, the memory usage is ", psutil.virtual_memory())
 
     def worker_init_fn(worker_id):
+        """
+        Initialize the worker.
+
+        Args:
+            worker_id: (str): write your description
+        """
         random.seed(manual_seed + worker_id)
     train_loader = torch.utils.data.DataLoader(
         point_data, batch_size=32, shuffle=True, num_workers=16, pin_memory=True, worker_init_fn=worker_init_fn)

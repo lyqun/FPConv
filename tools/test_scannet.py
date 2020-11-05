@@ -46,6 +46,13 @@ class_dict = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 24, 28,
 
 
 def load_checkpoint(model, filename):
+    """
+    Load model from file.
+
+    Args:
+        model: (todo): write your description
+        filename: (str): write your description
+    """
     if os.path.isfile(filename):
         print("==> Loading from checkpoint %s" % filename)
         checkpoint = torch.load(filename)

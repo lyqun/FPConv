@@ -10,6 +10,15 @@ relu_alpha = 0.2
 
 class PointNet(nn.Module):
     def __init__(self, mlp, pool='max', bn=True):
+        """
+        Initialize the gradient.
+
+        Args:
+            self: (todo): write your description
+            mlp: (str): write your description
+            pool: (todo): write your description
+            bn: (int): write your description
+        """
         super().__init__()
         self.mlp = pt_utils.SharedMLP(mlp, bn=bn, activation=nn.LeakyReLU(negative_slope=relu_alpha, inplace=True))
 
@@ -26,6 +35,16 @@ class PointNet(nn.Module):
 
 class ProjWeightModule(nn.Module):
     def __init__(self, mlp_pn, mlp_wts, map_size, bn=True):
+        """
+        Initialize layer
+
+        Args:
+            self: (todo): write your description
+            mlp_pn: (int): write your description
+            mlp_wts: (int): write your description
+            map_size: (int): write your description
+            bn: (int): write your description
+        """
         super().__init__()
         map_len = map_size ** 2
         mlp_pn = [3] + mlp_pn
@@ -52,6 +71,16 @@ class ProjWeightModule(nn.Module):
 
 class PN_Block(nn.Module):
     def __init__(self, in_channel, out_channel, bn=True, activation=True):
+        """
+        Initialize the channel.
+
+        Args:
+            self: (todo): write your description
+            in_channel: (int): write your description
+            out_channel: (str): write your description
+            bn: (int): write your description
+            activation: (str): write your description
+        """
         # Shared MLPs
         super().__init__()
         self.conv = pt_utils.Conv2d(in_size=in_channel, 
@@ -72,6 +101,19 @@ class PN_Block(nn.Module):
 
 class Pooling_Block(nn.Module):
     def __init__(self, radius, nsample, in_channel, out_channel, npoint=None, bn=True, activation=True):
+        """
+        Initialize a channel.
+
+        Args:
+            self: (todo): write your description
+            radius: (float): write your description
+            nsample: (int): write your description
+            in_channel: (int): write your description
+            out_channel: (str): write your description
+            npoint: (int): write your description
+            bn: (int): write your description
+            activation: (str): write your description
+        """
         super().__init__()
         self.radius = radius
         self.nsample = nsample
@@ -144,6 +186,15 @@ class Resnet_BaseBlock(nn.Module):
                                        activation=False)
 
     def forward(self, xyz, feats, new_xyz=None):
+        """
+        Perform forward
+
+        Args:
+            self: (todo): write your description
+            xyz: (todo): write your description
+            feats: (todo): write your description
+            new_xyz: (todo): write your description
+        """
         assert (self.keep_pcd and new_xyz is None) or not self.keep_pcd, 'invalid new_xyz.'
         
         new_feats = self.conv1(feats)
@@ -190,6 +241,15 @@ class AssemRes_BaseBlock(nn.Module):
                                                      use_xyz=use_xyz))
 
     def forward(self, xyz, feats, new_xyz=None):
+        """
+        Forward forward blocks from_xyz
+
+        Args:
+            self: (todo): write your description
+            xyz: (todo): write your description
+            feats: (todo): write your description
+            new_xyz: (todo): write your description
+        """
         for i, block in enumerate(self.conv_blocks):
             xyz, feats = block(xyz, feats, new_xyz)
         

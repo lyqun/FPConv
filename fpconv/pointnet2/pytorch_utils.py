@@ -14,6 +14,21 @@ class SharedMLP(nn.Sequential):
             first: bool = False,
             name: str = "",
             instance_norm: bool = False,):
+        """
+        Initialize the module.
+
+        Args:
+            self: (todo): write your description
+            bn: (int): write your description
+            activation: (str): write your description
+            nn: (todo): write your description
+            ReLU: (todo): write your description
+            inplace: (todo): write your description
+            preact: (todo): write your description
+            first: (str): write your description
+            name: (str): write your description
+            instance_norm: (todo): write your description
+        """
         super().__init__()
 
         for i in range(len(args) - 1):
@@ -51,6 +66,27 @@ class _ConvBase(nn.Sequential):
             instance_norm=False,
             instance_norm_func=None
     ):
+        """
+        Initialize the module.
+
+        Args:
+            self: (todo): write your description
+            in_size: (int): write your description
+            out_size: (int): write your description
+            kernel_size: (int): write your description
+            stride: (int): write your description
+            padding: (str): write your description
+            activation: (str): write your description
+            bn: (int): write your description
+            init: (str): write your description
+            conv: (todo): write your description
+            batch_norm: (str): write your description
+            bias: (float): write your description
+            preact: (todo): write your description
+            name: (str): write your description
+            instance_norm: (todo): write your description
+            instance_norm_func: (todo): write your description
+        """
         super().__init__()
 
         bias = bias and (not bn)
@@ -103,6 +139,15 @@ class _ConvBase(nn.Sequential):
 class _BNBase(nn.Sequential):
 
     def __init__(self, in_size, batch_norm=None, name=""):
+        """
+        Initialize the gradient.
+
+        Args:
+            self: (todo): write your description
+            in_size: (int): write your description
+            batch_norm: (str): write your description
+            name: (str): write your description
+        """
         super().__init__()
         self.add_module(name + "bn", batch_norm(in_size))
 
@@ -113,18 +158,42 @@ class _BNBase(nn.Sequential):
 class BatchNorm1d(_BNBase):
 
     def __init__(self, in_size: int, *, name: str = ""):
+        """
+        Initialize a batch.
+
+        Args:
+            self: (todo): write your description
+            in_size: (int): write your description
+            name: (str): write your description
+        """
         super().__init__(in_size, batch_norm=nn.BatchNorm1d, name=name)
 
 
 class BatchNorm2d(_BNBase):
 
     def __init__(self, in_size: int, name: str = ""):
+        """
+        Initialize batch.
+
+        Args:
+            self: (todo): write your description
+            in_size: (int): write your description
+            name: (str): write your description
+        """
         super().__init__(in_size, batch_norm=nn.BatchNorm2d, name=name)
         
 
 class BatchNorm3d(_BNBase):
 
     def __init__(self, in_size: int, name: str = ""):
+        """
+        Initialize a batch.
+
+        Args:
+            self: (todo): write your description
+            in_size: (int): write your description
+            name: (str): write your description
+        """
         super().__init__(in_size, batch_norm=nn.BatchNorm3d, name=name)
 
 
@@ -146,6 +215,30 @@ class Conv1d(_ConvBase):
             name: str = "",
             instance_norm=False
     ):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            in_size: (int): write your description
+            out_size: (int): write your description
+            kernel_size: (int): write your description
+            stride: (int): write your description
+            padding: (str): write your description
+            activation: (str): write your description
+            nn: (todo): write your description
+            ReLU: (todo): write your description
+            inplace: (todo): write your description
+            bn: (int): write your description
+            init: (str): write your description
+            nn: (todo): write your description
+            init: (str): write your description
+            kaiming_normal_: (todo): write your description
+            bias: (float): write your description
+            preact: (todo): write your description
+            name: (str): write your description
+            instance_norm: (todo): write your description
+        """
         super().__init__(
             in_size,
             out_size,
@@ -183,6 +276,30 @@ class Conv2d(_ConvBase):
             name: str = "",
             instance_norm=False
     ):
+        """
+        Initialize batch.
+
+        Args:
+            self: (todo): write your description
+            in_size: (int): write your description
+            out_size: (int): write your description
+            kernel_size: (int): write your description
+            stride: (int): write your description
+            padding: (str): write your description
+            activation: (str): write your description
+            nn: (todo): write your description
+            ReLU: (todo): write your description
+            inplace: (todo): write your description
+            bn: (int): write your description
+            init: (str): write your description
+            nn: (todo): write your description
+            init: (str): write your description
+            kaiming_normal_: (todo): write your description
+            bias: (float): write your description
+            preact: (todo): write your description
+            name: (str): write your description
+            instance_norm: (todo): write your description
+        """
         super().__init__(
             in_size,
             out_size,
@@ -219,6 +336,30 @@ class Conv3d(_ConvBase):
             name: str = "",
             instance_norm=False
     ):
+        """
+        Initialize a layer.
+
+        Args:
+            self: (todo): write your description
+            in_size: (int): write your description
+            out_size: (int): write your description
+            kernel_size: (int): write your description
+            stride: (int): write your description
+            padding: (str): write your description
+            activation: (str): write your description
+            nn: (todo): write your description
+            ReLU: (todo): write your description
+            inplace: (todo): write your description
+            bn: (int): write your description
+            init: (str): write your description
+            nn: (todo): write your description
+            init: (str): write your description
+            kaiming_normal_: (todo): write your description
+            bias: (float): write your description
+            preact: (todo): write your description
+            name: (str): write your description
+            instance_norm: (todo): write your description
+        """
         super().__init__(
             in_size,
             out_size,
@@ -251,6 +392,22 @@ class FC(nn.Sequential):
             preact: bool = False,
             name: str = ""
     ):
+        """
+        Initialize activations.
+
+        Args:
+            self: (todo): write your description
+            in_size: (int): write your description
+            out_size: (int): write your description
+            activation: (str): write your description
+            nn: (todo): write your description
+            ReLU: (todo): write your description
+            inplace: (todo): write your description
+            bn: (int): write your description
+            init: (str): write your description
+            preact: (todo): write your description
+            name: (str): write your description
+        """
         super().__init__()
 
         fc = nn.Linear(in_size, out_size, bias=not bn)

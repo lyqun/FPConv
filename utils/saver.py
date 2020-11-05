@@ -3,6 +3,14 @@ import torch
 
 class Saver():
     def __init__(self, save_dir, max_files=10):
+        """
+        Initialize the log.
+
+        Args:
+            self: (todo): write your description
+            save_dir: (str): write your description
+            max_files: (int): write your description
+        """
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
         
@@ -16,6 +24,16 @@ class Saver():
 
 
     def save_checkpoint(self, model, epoch, ckpt_name, best=False):
+        """
+        Save the model to disk.
+
+        Args:
+            self: (todo): write your description
+            model: (todo): write your description
+            epoch: (int): write your description
+            ckpt_name: (str): write your description
+            best: (int): write your description
+        """
         if isinstance(model, torch.nn.DataParallel) or isinstance(model, torch.nn.parallel.DistributedDataParallel):
             model_state = model.module.state_dict()
         else:
@@ -38,6 +56,14 @@ class Saver():
                 f.write(log + '\n')
         
     def load_checkpoint(self, model, filename):
+        """
+        Load checkpoint from file.
+
+        Args:
+            self: (todo): write your description
+            model: (todo): write your description
+            filename: (str): write your description
+        """
         if os.path.isfile(filename):
             log_str("==> Loading from checkpoint %s" % filename)
             checkpoint = torch.load(filename)

@@ -35,6 +35,12 @@ color_map = [[  0,   0,   0], # unlabeled (white)
 color_map = np.array(color_map)
 
 def vis(tag):
+    """
+    Draw a 3d plot
+
+    Args:
+        tag: (str): write your description
+    """
     file_path = os.path.join(args.file_dir, args.scene_id)
     xyzrgb = np.load(file_path + '_points.npy')
     if tag == 'labels':
