@@ -66,7 +66,7 @@ cd utils
 python collect_scannet_pickle.py
 ```
 
-It will generate 3 pickle files (`scannet_<split>_rgb21c_pointid.pickle`) for 3 splits (train, eval, test) respectively. We also provide a pre-processed ScanNet v2 dataset for downloading: [Google Drive](https://drive.google.com/drive/folders/1IcV-1OLFAWWdip8leKJa2WKsix18obt8?usp=sharing). The `./dataset` folder should be organized as follows.
+It will generate 3 pickle files (`scannet_<split>_rgb21c_pointid.pickle`) for 3 splits (train, eval, test) respectively. We also provide a pre-processed ScanNet v2 dataset for downloading: [Google Drive](https://drive.google.com/drive/folders/1xz59bKaIZbf0BU3oKSTs3qyV3gRf7aDW?usp=sharing). The `./dataset` folder should be organized as follows.
 
 ```
 FPConv
