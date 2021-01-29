@@ -1,4 +1,5 @@
 import os, sys
+sys.path.insert(0, "/home/densechen/code/FPConv")
 import json
 import numpy as np
 import argparse

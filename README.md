@@ -161,3 +161,6 @@ bash test_s3dis.sh
 
 This repository is released under MIT License (see LICENSE file for details).
 
+
+
+nohup scp -P 6626 -r dell@111.23.141.78:/media/dell/Elements/ScanNet . > scannet.log

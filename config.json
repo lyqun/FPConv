@@ -3,6 +3,6 @@
     "scannet_raw": "<path_to_this_repo>/dataset/scannet_v2",
     "scannet_pickle": "<path_to_this_repo>/dataset/scannet_pickles",
     "scene_list": "<path_to_this_repo>/utils/scannet_datalist",
-    "s3dis_aligned_raw": "<path_to_this_repo>/dataset/Stanford3dDataset_v1.2_Aligned_Version",
-    "s3dis_data_root": "<path_to_this_repo>/dataset/s3dis_aligned"
+    "s3dis_aligned_raw": "/home/densechen/code-mobile/superpoint_graph/data",
+    "s3dis_data_root": "/home/densechen/code-mobile/superpoint_graph/data/s3dis_aligned"
 }
