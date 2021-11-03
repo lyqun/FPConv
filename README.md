@@ -3,12 +3,12 @@
 Yiqun Lin, Zizheng Yan, Haibin Huang, Dong Du, Ligang Liu, Shuguang Cui, Xiaoguang Han, "FPConv: Learning Local Flattening for Point Convolution", CVPR 2020 [[paper]](https://arxiv.org/abs/2002.10701)
 
 ```
-@InProceedings{lin_fpconv_cvpr2020,
-    author = {Yiqun Lin, Zizheng Yan, Haibin Huang, Dong Du, Ligang Liu, Shuguang Cui, Xiaoguang Han},
-    title = {FPConv: Learning Local Flattening for Point Convolution},
-    booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-    month = {June},
-    year = {2020}
+@inproceedings{lin2020fpconv,
+  title={Fpconv: Learning local flattening for point convolution},
+  author={Lin, Yiqun and Yan, Zizheng and Huang, Haibin and Du, Dong and Liu, Ligang and Cui, Shuguang and Han, Xiaoguang},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={4293--4302},
+  year={2020}
 }
 ```
 
